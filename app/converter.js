@@ -7,16 +7,14 @@ const mammoth = require("mammoth"),
 
 function convertWordToMd(filePath) {
     mammoth.convertToMarkdown({ path: filePath }).then(result => {
-
         if (result.error) {
             console.log(result.error);
             return;
         }
-
-        let filePathInfo = prepareFiles.prepareDistDirectoryFile(filePath)
-        fs.writeFileSync(filePathInfo.filePathWithoutExtension + ".md", result.value, "utf-8", function (file, err) {
-            console.log(file);
-        });
+        let filePathInfo = prepareFiles.prepareDistDirectoryFile(filePath);
+        let fileWithExtension = filePathInfo.filePathWithoutExtension + ".md";
+        fs.writeFileSync(fileWithExtension + ".md", result.value, "utf-8");
+        console.log(`File ${fileWithExtension} created!`);
 
     }).catch(err => {
         console.log(err);
