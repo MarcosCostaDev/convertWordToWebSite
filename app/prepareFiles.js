@@ -31,9 +31,9 @@ function prepareDistDirectoryFile(filePath) {
   const sep = path.sep;
   const baseDir = path.dirname(filePath);
   const extension = path.extname(filePath);
-  const destDirAbsolute = path.resolve(configGlobal.configuracao.dist);
-  const targetDir = baseDir.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.dist);
-  const filePathDist = path.resolve(filePath.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.dist));
+  const destDirAbsolute = path.resolve(configGlobal.configuracao.mdDist);
+  const targetDir = baseDir.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.mdDist);
+  const filePathDist = path.resolve(filePath.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.mdDist));
 
   createDist(targetDir);
 
@@ -53,13 +53,13 @@ function prepareFolderDistDirectory(fileName, separator) {
   let directoryDistFile = "";
 
   if (directories.length > 0) {
-    directoryDistFile = `${configGlobal.configuracao.dist}\\${directories.join("\\")}`;
+    directoryDistFile = `${configGlobal.configuracao.mdDist}\\${directories.join("\\")}`;
     createDist(directoryDistFile, false);
     directoryDistFile = path.resolve(directoryDistFile);;
 
   }
   else {
-    directoryDistFile = path.resolve(`${configGlobal.configuracao.dist}`);;
+    directoryDistFile = path.resolve(`${configGlobal.configuracao.mdDist}`);;
   }
 
 
