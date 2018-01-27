@@ -2,7 +2,7 @@
   "name": "criador-md",
   "version": "1.0.0",
   "description": "",
-  "siteName": "teste word",
+  "siteName": "Convert Word To WebSite",
   "wordFileSource": "C:\\FAQ",
   "mdDist": "dist\\md",
   "dest": "dist",
