@@ -1,31 +1,5 @@
 ConvertWordToWebsite
 
-Sumário
-
-[Português	1](#_Toc504849614)
-
-[O que é?	1](#_Toc504849615)
-
-[Como funciona?	1](#_Toc504849616)
-
-[Comandos importantes	1](#_Toc504849617)
-
-[Como configurar?	2](#_Toc504849618)
-
-[English	3](#_Toc504849619)
-
-[What is?	3](#_Toc504849620)
-
-[The ConvertWordToWebsite project uses some tools to turn your \.doc / \.docx files to \.md into a folder format that you simply put on your web server as it will work\.	3](#_Toc504849621)
-
-[How is it works?	3](#_Toc504849622)
-
-[After you run this command, the project is ready for use\.	3](#_Toc504849623)
-
-[Important Commands	3](#_Toc504849624)
-
-[How to config?	4](#_Toc504849625)
-
 # <a id="_Toc504849614"></a>Português
 
 ## <a id="_Toc504849615"></a>O que é?
