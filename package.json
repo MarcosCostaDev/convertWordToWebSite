@@ -7,8 +7,8 @@
   "mdDist": "dist\\md",
   "dest": "dist",
   "scripts": {
-    "start": "gulp default",
-    "server": "gulp server",
+    "start": "gulp server",
+    "build": "gulp default",
     "only-server": "gulp only-server",
     "deleteDist": "gulp deleteDist"
   },
