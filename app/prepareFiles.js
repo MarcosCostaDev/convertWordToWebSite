@@ -25,13 +25,21 @@ function createDist(targetDir, isRelativeToScript) {
 }
 
 
-function getInformationFilePath(filePath) {
+function prepareDistDirectoryFile(filePath) {
   const sep = path.sep;
-  const targetDir = path.baseDir(filePath);
-  const initDir = path.isAbsolute(targetDir) ? sep : '';
-  console.log(targetDir);
+  const baseDir = path.dirname(filePath);
+  const extension = path.extname(filePath);
+  const targetDir = baseDir.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.dist);
+  const filePathDist = path.resolve(filePath.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.dist));
+  createDist(targetDir);
+  return {
+    distDirectory: targetDir,
+    filePathDist: filePathDist,
+    extension: extension,
+    filePathWithoutExtension: filePathDist.replace(extension, "")
+  }
 }
 
 
 exports.createDist = createDist;
-exports.getInformationFilePath = getInformationFilePath;
+exports.prepareDistDirectoryFile = prepareDistDirectoryFile;
