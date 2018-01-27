@@ -10,7 +10,7 @@
     "start": "gulp server",
     "build": "gulp default",
     "only-server": "gulp only-server",
-    "deleteDist": "gulp deleteDist"
+    "delete-dist": "gulp deleteDist"
   },
   "author": "",
   "license": "ISC",
