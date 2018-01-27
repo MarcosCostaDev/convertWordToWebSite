@@ -1,23 +1,47 @@
 const configGlobal = require("./app/config/configGlobal"),
+    menuMain = require("./app/menuMain"),
     gulp = require("gulp"),
     mammoth = require("mammoth"),
     through = require("through2"),
     converter = require("./app/converter"),
     clean = require("gulp-clean"),
-    rename = require("gulp-rename");
+    rename = require("gulp-rename"),
+    browserSync = require('browser-sync').create(),
+    reload = browserSync.reload;
 
-let caminhos = [
+let pathDocs = [
     `${configGlobal.configuracao.wordFileSource}\\*.{doc,docx}`,
-    `!${configGlobal.configuracao.wordFileSource}\\~$*.{doc,docx}`,
+    `!${configGlobal.configuracao.wordFileSource}\\~$*.{doc,docx}`
+]
+let pathDistMds = [
+    `${configGlobal.configuracao.mdDist}\\**\\*.md`
 ]
 
 
 gulp.task("default", ["createWiki"]);
 
-gulp.task("createWiki", ["createMenu"], function () {
+gulp.task("server", ["createWiki"], function () {
+    browserSync.init({
+        server: {
+            baseDir: `./dist`
+        }
+    });
 
-    gulp.start(["copyIndex.html", "copyIndex.md"])
-   
+    gulp.watch(pathDistMds).on("change", reload);
+});
+
+gulp.task("only-server", function(){
+    browserSync.init({
+        server: {
+            baseDir: `./dist`
+        }
+    });
+
+    gulp.watch(pathDistMds).on("change", reload);
+})
+
+gulp.task("createWiki", ["createMenu"], function () {
+    return gulp.start(["copyIndex.html", "copyIndex.md", "copy-javascript"])
 })
 
 
@@ -32,13 +56,28 @@ gulp.task("copyIndex.md", function () {
         .pipe(gulp.dest(configGlobal.configuracao.dist))
 })
 
-gulp.task("createMenu", ["createMds"], function () {
 
+gulp.task("copy-javascript", function () {
+    return gulp.src("./webapp/*.js")
+        .pipe(gulp.dest(configGlobal.configuracao.dist))
+})
+
+gulp.task("createMenu", ["prepareMenu"], function () {
+    return gulp.start(function () {
+        menuMain.generateMenu();
+    })
+})
+
+gulp.task("prepareMenu", ["createMds"], function () {
+    return gulp.src(pathDistMds, { read: false })
+        .pipe(through.obj((chunk, enc, cb) => {
+            menuMain.prepareMenu(chunk.history[0]);
+            cb(null, chunk)
+        }))
 })
 
 gulp.task("createMds", ["deleteDist"], function () {
-
-    return gulp.src(caminhos)
+    return gulp.src(pathDocs, { read: false })
         .pipe(through.obj((chunk, enc, cb) => {
             converter.convertWordToMd(chunk.history[0]);
             cb(null, chunk)

@@ -3,14 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "gulp default"
+    "start": "gulp default",
+    "server": "gulp server",
+    "only-server": "gulp only-server"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "browser-sync": "^2.23.6",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "gulp-rename": "^1.2.2",
+    "http-server": "^0.11.1",
     "linq": "^3.0.9",
     "mammoth": "^1.4.4"
   }

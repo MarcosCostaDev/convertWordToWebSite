@@ -7,11 +7,43 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "debug gulp",
+            "name": "debug gulp default",
             "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
             "stopOnEntry": true,
             "args": [
                 "default"
+            ],
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "skipFiles": [
+                "${workspaceRoot}/node_modules/**/*.js",
+            ],
+            "env": {}
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "debug gulp createMenu",
+            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+            "stopOnEntry": true,
+            "args": [
+                "createMenu"
+            ],
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "skipFiles": [
+                "${workspaceRoot}/node_modules/**/*.js",
+            ],
+            "env": {}
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "debug gulp server",
+            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+            "stopOnEntry": true,
+            "args": [
+                "serve"
             ],
             "cwd": "${workspaceRoot}",
             "runtimeExecutable": null,
