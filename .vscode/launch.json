@@ -15,6 +15,9 @@
             ],
             "cwd": "${workspaceRoot}",
             "runtimeExecutable": null,
+            "skipFiles": [
+                "${workspaceRoot}/node_modules/**/*.js",
+            ],
             "env": {}
         }
     ]

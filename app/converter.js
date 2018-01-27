@@ -13,7 +13,9 @@ function convertWordToMd(filePath) {
         }
         let filePathInfo = prepareFiles.prepareDistDirectoryFile(filePath);
         let fileWithExtension = filePathInfo.filePathWithoutExtension + ".md";
-        fs.writeFileSync(fileWithExtension + ".md", result.value, "utf-8");
+
+        let fileDistPath = prepareFiles.prepareFolderDistDirectory(filePathInfo.fileNameWithoutExtension, "-");
+        fs.writeFileSync(fileDistPath.filePathFinal + ".md", result.value, "utf-8");
         console.log(`File ${fileWithExtension} created!`);
 
     }).catch(err => {

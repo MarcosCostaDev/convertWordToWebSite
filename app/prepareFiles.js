@@ -1,5 +1,7 @@
+
 const configGlobal = require("./config/configGlobal"),
   path = require("path"),
+  Enumerable = require("linq"),
   fs = require("fs");
 
 function createDist(targetDir, isRelativeToScript) {
@@ -29,17 +31,47 @@ function prepareDistDirectoryFile(filePath) {
   const sep = path.sep;
   const baseDir = path.dirname(filePath);
   const extension = path.extname(filePath);
+  const destDirAbsolute = path.resolve(configGlobal.configuracao.dist);
   const targetDir = baseDir.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.dist);
   const filePathDist = path.resolve(filePath.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.dist));
+
   createDist(targetDir);
+
   return {
     distDirectory: targetDir,
     filePathDist: filePathDist,
     extension: extension,
+    fileNameWithoutExtension: filePathDist.replace(destDirAbsolute + "\\", "").replace(extension, ""),
     filePathWithoutExtension: filePathDist.replace(extension, "")
   }
+}
+
+function prepareFolderDistDirectory(fileName, separator) {
+  let pathArray = fileName.split(separator).map(p => p.trim());
+  let fileNameFinal = Enumerable.from(pathArray).lastOrDefault("");
+  let directories = Enumerable.from(pathArray).take(pathArray.length - 1).toArray();
+  let directoryDistFile = "";
+
+  if (directories.length > 0) {
+    directoryDistFile = `${configGlobal.configuracao.dist}\\${directories.join("\\")}`;
+    createDist(directoryDistFile, false);
+    directoryDistFile = path.resolve(directoryDistFile);;
+
+  }
+  else {
+    directoryDistFile = path.resolve(`${configGlobal.configuracao.dist}`);;
+  }
+
+
+  return {
+    fileName: fileNameFinal,
+    directory: directoryDistFile,
+    filePathFinal: `${directoryDistFile}\\${fileNameFinal}`
+  }
+
 }
 
 
 exports.createDist = createDist;
 exports.prepareDistDirectoryFile = prepareDistDirectoryFile;
+exports.prepareFolderDistDirectory = prepareFolderDistDirectory;
