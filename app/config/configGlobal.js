@@ -1,4 +1,4 @@
-var pjson = require('./package.json');
+var pjson = require('../../package.json');
 
 exports.configuracao = {
     wordFileSource: pjson.wordFileSource,

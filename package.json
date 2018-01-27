@@ -5,7 +5,7 @@
   "siteName": "teste word",
   "wordFileSource": "C:\\FAQ",
   "mdDist": "dist\\md",
-  "dest": "dest",
+  "dest": "dist",
   "scripts": {
     "start": "gulp default",
     "server": "gulp server",
