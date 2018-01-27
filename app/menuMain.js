@@ -25,17 +25,17 @@ function generateMenu() {
         .groupBy(p => p.parent)
         .select((g, i) => {
             let parent = path.basename(g.key());
-            let itemTemp = `[${parent}]()\n`;
+            let itemTemp = `\n\n[${parent}]()\n\n`;
             let texto = g.aggregate(( prev, atual) => {
-                itemTemp += `* [${atual.fileName.replace(".md", "")}](${atual.href}) \n`;
+                itemTemp += `* [${atual.fileName.replace(".md", "")}](${atual.fileName}) \n`;
                 return itemTemp;
             });
-            return texto           
+            return texto;     
 
         }).toArray();
 
     for (let item of itens) {
-       fs.appendFileSync(`${path.resolve(globalConfig.configuracao.dist)}\\navigation.md`, item + "\n\n", "utf-8");
+       fs.appendFileSync(`${path.resolve(globalConfig.configuracao.dist)}\\navigation.md`, item, "utf-8");
 
     }
 

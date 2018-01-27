@@ -1,13 +1,15 @@
 const configGlobal = require("./app/config/configGlobal"),
     menuMain = require("./app/menuMain"),
     gulp = require("gulp"),
+    copy = require("gulp-copy"),
     mammoth = require("mammoth"),
     through = require("through2"),
     converter = require("./app/converter"),
     clean = require("gulp-clean"),
-    rename = require("gulp-rename"),
-    browserSync = require('browser-sync').create(),
-    reload = browserSync.reload;
+    del = require("del"),
+    webserver = require('gulp-webserver'),
+    flatten = require("gulp-flatten"),
+    rename = require("gulp-rename");
 
 let pathDocs = [
     `${configGlobal.configuracao.wordFileSource}\\*.{doc,docx}`,
@@ -18,29 +20,19 @@ let pathDistMds = [
 ]
 
 
-gulp.task("default", ["createWiki"]);
+gulp.task("default", ["createWiki", "deleteMD"]);
 
-gulp.task("server", ["createWiki"], function () {
-    browserSync.init({
-        server: {
-            baseDir: `./dist`
-        }
-    });
-
-    gulp.watch(pathDistMds).on("change", reload);
+gulp.task("server", ["createWiki", "deleteMD"], function () {
+    return gulp.start("only-server");
 });
 
-gulp.task("only-server", function(){
-    browserSync.init({
-        server: {
-            baseDir: `./dist`
-        }
-    });
-
-    gulp.watch(pathDistMds).on("change", reload);
+gulp.task("only-server", function () {
+    return gulp.src("dist").pipe(webserver({
+        open: true
+    }));
 })
 
-gulp.task("createWiki", ["createMenu"], function () {
+gulp.task("createWiki", ["createWebAppOnDist"], function () {
     return gulp.start(["copyIndex.html", "copyIndex.md", "copy-javascript"])
 })
 
@@ -60,6 +52,17 @@ gulp.task("copyIndex.md", function () {
 gulp.task("copy-javascript", function () {
     return gulp.src("./webapp/*.js")
         .pipe(gulp.dest(configGlobal.configuracao.dist))
+})
+
+gulp.task("createWebAppOnDist", ["copyMdToDist"], function(){
+   return gulp.src(pathDistMds)
+    pipe(clean());
+})
+
+gulp.task("copyMdToDist", ["createMenu"], function(){
+    return gulp.src(pathDistMds)
+    .pipe(flatten())
+    .pipe(gulp.dest(configGlobal.configuracao.dist))
 })
 
 gulp.task("createMenu", ["prepareMenu"], function () {
@@ -85,6 +88,10 @@ gulp.task("createMds", ["deleteDist"], function () {
 })
 
 gulp.task("deleteDist", function () {
-    return gulp.src('dist', { read: false })
-        .pipe(clean());
+    return del('./dist', {force:true});
+});
+
+
+gulp.task("deleteMD", function () {
+    return del('./dist/md/', {force:true});
 });

@@ -5,16 +5,20 @@
   "scripts": {
     "start": "gulp default",
     "server": "gulp server",
-    "only-server": "gulp only-server"
+    "only-server": "gulp only-server",
+    "deleteDist": "gulp deleteDist"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "browser-sync": "^2.23.6",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
+    "gulp-copy": "^1.1.0",
+    "gulp-flatten": "^0.4.0",
     "gulp-rename": "^1.2.2",
-    "http-server": "^0.11.1",
+    "gulp-run-command": "0.0.9",
+    "gulp-webserver": "^0.9.1",
     "linq": "^3.0.9",
     "mammoth": "^1.4.4"
   }
