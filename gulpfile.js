@@ -54,7 +54,7 @@ gulp.task("copy-javascript", function () {
         .pipe(gulp.dest(configGlobal.configuracao.dest))
 })
 
-gulp.task("createWebAppOnDest", ["copyMdToDist"], function(){
+gulp.task("createWebAppOnDest", ["createMenu"], function(){
    return gulp.src(pathDistMds)
     pipe(clean());
 })
