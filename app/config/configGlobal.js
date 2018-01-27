@@ -1,5 +1,8 @@
+var pjson = require('./package.json');
+
 exports.configuracao = {
-    wordFileSource: "C:\\FAQ",
-    mdDist: "dist\\md",
-    dist: "dist"
+    wordFileSource: pjson.wordFileSource,
+    mdDist: pjson.mdDist,
+    dest: pjson.dest,
+    siteName: pjson.siteName
 }

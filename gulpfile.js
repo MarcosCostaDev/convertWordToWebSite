@@ -32,7 +32,7 @@ gulp.task("only-server", function () {
     }));
 })
 
-gulp.task("createWiki", ["createWebAppOnDist"], function () {
+gulp.task("createWiki", ["createWebAppOnDest"], function () {
     return gulp.start(["copyIndex.html", "copyIndex.md", "copy-javascript"])
 })
 
@@ -40,21 +40,21 @@ gulp.task("createWiki", ["createWebAppOnDist"], function () {
 gulp.task("copyIndex.html", function () {
     return gulp.src("./webapp/mdwiki.html")
         .pipe(rename('index.html'))
-        .pipe(gulp.dest(configGlobal.configuracao.dist))
+        .pipe(gulp.dest(configGlobal.configuracao.dest))
 })
 
 gulp.task("copyIndex.md", function () {
     return gulp.src("./webapp/index.md")
-        .pipe(gulp.dest(configGlobal.configuracao.dist))
+        .pipe(gulp.dest(configGlobal.configuracao.dest))
 })
 
 
 gulp.task("copy-javascript", function () {
     return gulp.src("./webapp/*.js")
-        .pipe(gulp.dest(configGlobal.configuracao.dist))
+        .pipe(gulp.dest(configGlobal.configuracao.dest))
 })
 
-gulp.task("createWebAppOnDist", ["copyMdToDist"], function(){
+gulp.task("createWebAppOnDest", ["copyMdToDist"], function(){
    return gulp.src(pathDistMds)
     pipe(clean());
 })
@@ -62,7 +62,7 @@ gulp.task("createWebAppOnDist", ["copyMdToDist"], function(){
 gulp.task("copyMdToDist", ["createMenu"], function(){
     return gulp.src(pathDistMds)
     .pipe(flatten())
-    .pipe(gulp.dest(configGlobal.configuracao.dist))
+    .pipe(gulp.dest(configGlobal.configuracao.dest))
 })
 
 gulp.task("createMenu", ["prepareMenu"], function () {

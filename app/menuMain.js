@@ -20,6 +20,7 @@ function prepareMenu(mdPath) {
 }
 
 function generateMenu() {
+    fs.appendFileSync(`${path.resolve(globalConfig.configuracao.dest)}\\navigation.md`, `# ${globalConfig.configuracao.siteName}`, "utf-8");
 
     let itens = Enumerable.from(itensMenuTemp)
         .groupBy(p => p.parent)
@@ -35,7 +36,7 @@ function generateMenu() {
         }).toArray();
 
     for (let item of itens) {
-       fs.appendFileSync(`${path.resolve(globalConfig.configuracao.dist)}\\navigation.md`, item, "utf-8");
+       fs.appendFileSync(`${path.resolve(globalConfig.configuracao.dest)}\\navigation.md`, item, "utf-8");
 
     }
 

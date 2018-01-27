@@ -2,6 +2,10 @@
   "name": "criador-md",
   "version": "1.0.0",
   "description": "",
+  "siteName": "teste word",
+  "wordFileSource": "C:\\FAQ",
+  "mdDist": "dist\\md",
+  "dest": "dest",
   "scripts": {
     "start": "gulp default",
     "server": "gulp server",
