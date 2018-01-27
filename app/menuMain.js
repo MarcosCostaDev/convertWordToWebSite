@@ -14,7 +14,7 @@ function prepareMenu(mdPath) {
     itensMenuTemp.push({
         parent: path.dirname(mdPath),
         folderParent: path.dirname(path.dirname(mdPath)),
-        fileName: path.basename(fileMd),
+        fileName: path.basename(fileMd).toUpperCase(),
         fullpath: mdPath,
         href: "/md/" + mdPath.replace(pathBase, "").replace(/\\/g, "/")
     });
@@ -40,7 +40,7 @@ function generateMenu() {
             }
             
             let texto = g.aggregate((prev, atual) => {
-                itemTemp += `* [${atual.fileName.replace(".md", "")}](${atual.href}) \n`;
+                itemTemp += `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
                 return itemTemp;
             });
             return texto;
