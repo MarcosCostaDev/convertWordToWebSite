@@ -1,4 +1,4 @@
-ConvertWordToWebsite
+# ConvertWordToWebsite
 
 __Português__
 
@@ -10,95 +10,99 @@ __Como funciona?__
 
 Para começar a utilizar, após baixar o projeto\. Tenha em mente de ter o __node\.js__ instalado na sua máquina, no terminal, você deverá usar o comando
 
-*npm install*
-
+``` 
+npm install
+```
 Após rodar este comando, o projeto estará pronto para uso\.
 
 __Comandos importantes__
 
 Utilize esses comandos para rodar seu projeto
-
-*npm start*
-
+``` 
+npm start
+``` 
 O projeto irá transformar todos os arquivos words da pasta selecionada em \.md e iniciará o navegador web com o site funcionando
-
-*npm run build*
-
+``` 
+npm run build*
+``` 
 O projeto irá transformar todos os arquivos words da pasta selecionada em \.md\.
 
-*npm run only\-server*
+``` 
+npm run only-server*
+``` 
 
 O projeto iniciará o navegador web com o site funcionando caso ele esteja construído\.
-
-\*npm run delete\-dist \*
+``` 
+npm run delete-dist 
+``` 
 
 O projeto iniciará o comando para deletar a pasta dist \(distribuição\)
 
 __Como configurar?__
+``` 
+{
 
-\{
+"name": "criador-md",
 
-"name": "criador\-md",
-
-"version": "1\.0\.0",
+"version": "1.0.0",
 
 "description": "",
 
 "siteName": "Convert Word To WebSite",
 
-"wordFileSource": "C:\\\\FAQ",
+"wordFileSource": "C:\\FAQ",
 
-"mdDist": "dist\\\\md",
+"mdDist": "dist\\md",
 
 "dest": "dist",
 
-"scripts": \{
+"scripts": {
 
 "start": "gulp server",
 
 "build": "gulp default",
 
-"only\\\-server": "gulp only\\\-server",
+"only-server": "gulp only-server",
 
-"delete\\\-dist": "gulp deleteDist"
+"delete-dist": "gulp deleteDist"
 
-\},
+},
 
 "author": "",
 
 "license": "ISC",
 
-"devDependencies": \{
+"devDependencies": {
 
-"del": "^3\\\.0\\\.0",
+"del": "^3.0.0",
 
-"gulp": "^3\\\.9\\\.1",
+"gulp": "^3.9.1",
 
-"gulp\\\-clean": "^0\\\.4\\\.0",
+"gulp-clean": "^0.4.0",
 
-"gulp\\\-copy": "^1\\\.1\\\.0",
+"gulp-copy": "^1.1.0",
 
-"gulp\\\-flatten": "^0\\\.4\\\.0",
+"gulp-flatten": "^0.4.0",
 
-"gulp\\\-rename": "^1\\\.2\\\.2",
+"gulp-rename": "^1.2.2",
 
-"gulp\\\-run\\\-command": "0\\\.0\\\.9",
+"gulp-run-command": "0.0.9",
 
-"gulp\\\-webserver": "^0\\\.9\\\.1",
+"gulp-webserver": "^0.9.1",
 
-"linq": "^3\\\.0\\\.9",
+"linq": "^3.0.9",
 
-"mammoth": "^1\\\.4\\\.4"
+"mammoth": "^1.4.4"
 
-\}
+}
 
-\}
-
+}
+``` 
 No package json, você deverá alterar algumas informações\.
 
 siteName – para configurar o nome do site\.
 
-wordFileSource – Caminho da pasta onde estão os seus arquivos word\. Atenção, usar contra\-barra duplicada \\\\ para navegar nas pastas\.
+wordFileSource – Caminho da pasta onde estão os seus arquivos word\. Atenção, usar contra\-barra duplicada \ para navegar nas pastas\.
 
 dest – caminho da pasta de distribuição\. \(não alterar\)
 
@@ -139,64 +143,65 @@ The project will start the web browser with the site running if it is built\.
 The project will start the command to delete the dist \(distribution\)
 
 __How to config?__
+``` 
+{
 
-\{
+"name": "criador-md",
 
-"name": "criador\-md",
-
-"version": "1\.0\.0",
+"version": "1.0.0",
 
 "description": "",
 
 "siteName": "Convert Word To WebSite",
 
-"wordFileSource": "C:\\\\FAQ",
+"wordFileSource": "C:\\FAQ",
 
-"mdDist": "dist\\\\md",
+"mdDist": "dist\\md",
 
 "dest": "dist",
 
-"scripts": \{
+"scripts": {
 
 "start": "gulp server",
 
 "build": "gulp default",
 
-"only\\\-server": "gulp only\\\-server",
+"only-server": "gulp only-server",
 
-"delete\\\-dist": "gulp deleteDist"
+"delete-dist": "gulp deleteDist"
 
-\},
+},
 
 "author": "",
 
 "license": "ISC",
 
-"devDependencies": \{
+"devDependencies": {
 
-"del": "^3\\\.0\\\.0",
+"del": "^3.0.0",
 
-"gulp": "^3\\\.9\\\.1",
+"gulp": "^3.9.1",
 
-"gulp\\\-clean": "^0\\\.4\\\.0",
+"gulp-clean": "^0.4.0",
 
-"gulp\\\-copy": "^1\\\.1\\\.0",
+"gulp-copy": "^1.1.0",
 
-"gulp\\\-flatten": "^0\\\.4\\\.0",
+"gulp-flatten": "^0.4.0",
 
-"gulp\\\-rename": "^1\\\.2\\\.2",
+"gulp-rename": "^1.2.2",
 
-"gulp\\\-run\\\-command": "0\\\.0\\\.9",
+"gulp-run-command": "0.0.9",
 
-"gulp\\\-webserver": "^0\\\.9\\\.1",
+"gulp-webserver": "^0.9.1",
 
-"linq": "^3\\\.0\\\.9",
+"linq": "^3.0.9",
 
-"mammoth": "^1\\\.4\\\.4"
+"mammoth": "^1.4.4"
 
-\}
+}
 
-\}
+}
+``` 
 
 In package json, you should change some information\.
 
