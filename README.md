@@ -42,7 +42,7 @@ __Como configurar?__
 ``` 
 {
 
-"name": "criador-md",
+"name": "convert-word-to-website",
 
 "version": "1.0.0",
 
@@ -146,7 +146,7 @@ __How to config?__
 ``` 
 {
 
-"name": "criador-md",
+"name": "convert-word-to-website",
 
 "version": "1.0.0",
 
