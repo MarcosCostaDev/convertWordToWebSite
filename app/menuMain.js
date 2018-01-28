@@ -11,13 +11,16 @@ function prepareMenu(mdPath) {
     let fileMd = mdPath.replace(pathBase, "");
     let itensMenuCreating = fileMd.split("\\");
 
-    itensMenuTemp.push({
-        parent: path.dirname(mdPath),
-        folderParent: path.dirname(path.dirname(mdPath)),
-        fileName: path.basename(fileMd).toUpperCase(),
-        fullpath: mdPath,
-        href: "/md/" + mdPath.replace(pathBase, "").replace(/\\/g, "/")
-    });
+    if (!path.basename(fileMd).toUpperCase().startsWith("INDEX")) {
+        itensMenuTemp.push({
+            parent: path.dirname(mdPath),
+            folderParent: path.dirname(path.dirname(mdPath)),
+            fileName: path.basename(fileMd).toUpperCase(),
+            fullpath: mdPath,
+            href: "/md/" + mdPath.replace(pathBase, "").replace(/\\/g, "/")
+        });
+    }
+
 }
 
 function generateMenu() {
@@ -30,15 +33,13 @@ function generateMenu() {
             let parent = path.basename(g.key());
             let folderParent = g.first().folderParent;
             let itemTemp = "";
-            if(path.resolve(folderParent) == path.resolve(globalConfig.configuracao.mdDist))
-            {
+            if (path.resolve(folderParent) == path.resolve(globalConfig.configuracao.mdDist)) {
                 itemTemp = `\n\n[${parent}]()\n\n`;
             }
-            else
-            {
+            else {
                 itemTemp = `\n - - - - \n* # ${parent}\n\n`;
             }
-            
+
             let texto = g.aggregate((prev, atual) => {
                 itemTemp += `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
                 return itemTemp;

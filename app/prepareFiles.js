@@ -53,13 +53,22 @@ function prepareFolderDistDirectory(fileName, separator) {
   let directoryDistFile = "";
 
   if (directories.length > 0) {
+
     directoryDistFile = `${configGlobal.configuracao.mdDist}\\${directories.join("\\")}`;
+
+
     createDist(directoryDistFile, false);
     directoryDistFile = path.resolve(directoryDistFile);;
 
   }
   else {
-    directoryDistFile = path.resolve(`${configGlobal.configuracao.mdDist}`);;
+    if (fileName.startsWith("index")) {
+      directoryDistFile = `${configGlobal.configuracao.dest}\\`;
+    }
+    else {
+
+      directoryDistFile = path.resolve(`${configGlobal.configuracao.mdDist}`);
+    }
   }
 
 

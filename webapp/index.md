@@ -2,11 +2,11 @@ ConvertWordToWebsite
 
 # <a id="_Toc504849614"></a>Português
 
-## <a id="_Toc504849615"></a>O que é?
+# <a id="_Toc504849615"></a>O que é?
 
 O projeto ConvertWordToWebsite utiliza algumas ferramentas para transformar os seus arquivos \.doc / \.docx para \.md em um formato de pasta que basta você colocar no seu servidor web que ele funcionará\.
 
-## <a id="_Toc504849616"></a>Como funciona?
+# <a id="_Toc504849616"></a>Como funciona?
 
 Para começar a utilizar, após baixar o projeto\. Tenha em mente de ter o __node\.js__ instalado na sua máquina, no terminal, você deverá usar o comando 
 
@@ -14,7 +14,7 @@ Para começar a utilizar, após baixar o projeto\. Tenha em mente de ter o __nod
 
 Após rodar este comando, o projeto estará pronto para uso\.
 
-## <a id="_Toc504849617"></a>Comandos importantes
+# <a id="_Toc504849617"></a>Comandos importantes
 
 Utilize esses comandos para rodar seu projeto
 
@@ -34,7 +34,7 @@ O projeto iniciará o navegador web com o site funcionando caso ele esteja const
 
 O projeto iniciará o comando para deletar a pasta dist \(distribuição\)
 
-## <a id="_Toc504849618"></a>Como configurar?
+# <a id="_Toc504849618"></a>Como configurar?
 
 \{
 
@@ -106,11 +106,11 @@ mdDist – caminho da pasta de markdown será salvo\. \(não alterar\)
 
 # <a id="_Toc504849619"></a>English
 
-## <a id="_Toc504849620"></a>What is?
+# <a id="_Toc504849620"></a>What is?
 
 ## <a id="_Toc504849621"></a>The ConvertWordToWebsite project uses some tools to turn your \.doc / \.docx files to \.md into a folder format that you simply put on your web server as it will work\.
 
-## <a id="_Toc504849622"></a>How is it works?
+# <a id="_Toc504849622"></a>How is it works?
 
 To start using after downloading the project\. Keep in mind to have node\.js installed on your machine, in the terminal, you must use the command
 
@@ -118,7 +118,7 @@ To start using after downloading the project\. Keep in mind to have node\.js ins
 
 ## <a id="_Toc504849623"></a>After you run this command, the project is ready for use\.
 
-## <a id="_Toc504849624"></a>Important Commands
+# <a id="_Toc504849624"></a>Important Commands
 
 Use these commands to run your project
 

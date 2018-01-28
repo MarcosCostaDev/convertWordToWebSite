@@ -1,7 +1,8 @@
 const configGlobal = require("./app/config/configGlobal"),
     menuMain = require("./app/menuMain"),
     gulp = require("gulp"),
-    copy = require("gulp-copy"),
+    fs = require("fs"),
+    path = require("path"),
     mammoth = require("mammoth"),
     through = require("through2"),
     converter = require("./app/converter"),
@@ -44,8 +45,11 @@ gulp.task("copyIndex.html", function () {
 })
 
 gulp.task("copyIndex.md", function () {
-    return gulp.src("./webapp/index.md")
-        .pipe(gulp.dest(configGlobal.configuracao.dest))
+    if (!fs.existsSync(path.resolve("./dist/index.md"))) {
+        return gulp.src("./webapp/index.md")
+            .pipe(gulp.dest(configGlobal.configuracao.dest))
+    }
+    return;
 })
 
 
@@ -54,15 +58,15 @@ gulp.task("copy-javascript", function () {
         .pipe(gulp.dest(configGlobal.configuracao.dest))
 })
 
-gulp.task("createWebAppOnDest", ["createMenu"], function(){
-   return gulp.src(pathDistMds)
+gulp.task("createWebAppOnDest", ["createMenu"], function () {
+    return gulp.src(pathDistMds)
     pipe(clean());
 })
 
-gulp.task("copyMdToDist", ["createMenu"], function(){
+gulp.task("copyMdToDist", ["createMenu"], function () {
     return gulp.src(pathDistMds)
-    .pipe(flatten())
-    .pipe(gulp.dest(configGlobal.configuracao.dest))
+        .pipe(flatten())
+        .pipe(gulp.dest(configGlobal.configuracao.dest))
 })
 
 gulp.task("createMenu", ["prepareMenu"], function () {
@@ -88,10 +92,10 @@ gulp.task("createMds", ["deleteDist"], function () {
 })
 
 gulp.task("deleteDist", function () {
-    return del('./dist', {force:true});
+    return del('./dist', { force: true });
 });
 
 
 gulp.task("deleteMD", function () {
-    return del('./dist/md/', {force:true});
+    return del('./dist/md/', { force: true });
 });
