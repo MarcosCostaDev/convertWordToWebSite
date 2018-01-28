@@ -108,6 +108,20 @@ dest – caminho da pasta de distribuição\. \(não alterar\)
 
 mdDist – caminho da pasta de markdown será salvo\. \(não alterar\)
 
+__Criação de menus__ 
+
+Para criação de menu, os seus arquivos words devem ter no nome o caractere 
+
+```
+ - 
+``` 
+como no exemplo abaixo:
+```
+C:\\FAQ\\Menu Principal - Menu Secondary - nome do arquivo.docx
+```
+
+dessa forma será criado 2 menus, um que fica no topo da tela, os outros dois serão filhos deste primeiro.
+
 __English__
 
 __What is?__
