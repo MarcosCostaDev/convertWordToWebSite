@@ -39,19 +39,28 @@ function generateMenu() {
             else {
                 itemTemp = `\n - - - - \n* # ${parent}\n\n`;
             }
-
-            let text = g.aggregate((prev, atual) => {
-                if(typeof prev == 'object')
-                {
-                    itemTemp += `* [${prev.fileName.replace(".MD", "")}](${prev.href}) \n` + `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
-                }
-                else
-                {
-                    itemTemp += `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
-                }
-               
-                return itemTemp;
-            });
+            let text = "";
+            if(g.count() > 1)
+            {
+                text += g.aggregate((prev, atual) => {
+                    if(typeof prev == 'object')
+                    {
+                        itemTemp += `* [${prev.fileName.replace(".MD", "")}](${prev.href}) \n` + `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
+                    }
+                    else
+                    {
+                        itemTemp += `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
+                    }
+                   
+                    return itemTemp;
+                });
+            }
+            else
+            {
+                itemTemp += `* [${g.first().fileName.replace(".MD", "")}](${g.first().href}) \n`
+                text += itemTemp;
+            }
+           
             return text;
 
         }).toArray();
