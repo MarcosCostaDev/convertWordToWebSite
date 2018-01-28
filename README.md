@@ -117,29 +117,29 @@ __The ConvertWordToWebsite project uses some tools to turn your \.doc / \.docx f
 __How is it works?__
 
 To start using after downloading the project\. Keep in mind to have node\.js installed on your machine, in the terminal, you must use the command
-
-*npm install*
-
+```
+npm install
+```
 __After you run this command, the project is ready for use\.__
 
 __Important Commands__
 
 Use these commands to run your project
-
-*npm start*
-
+```
+npm start
+```
 The project will transform all words files from the selected folder into \.md and will start the web browser with the site running
-
-*npm run build*
-
+```
+npm run build
+```
 The project will transform all words files from the selected folder into \.md\.
-
-*npm run only\-server*
-
+```
+npm run only-server
+```
 The project will start the web browser with the site running if it is built\.
-
-*npm run delete\-dist*
-
+```
+npm run delete-dist
+```
 The project will start the command to delete the dist \(distribution\)
 
 __How to config?__
