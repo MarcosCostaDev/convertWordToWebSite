@@ -43,7 +43,7 @@
             "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
             "stopOnEntry": true,
             "args": [
-                "serve"
+                "only-server"
             ],
             "cwd": "${workspaceRoot}",
             "runtimeExecutable": null,

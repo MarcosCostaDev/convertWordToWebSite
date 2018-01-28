@@ -28,9 +28,27 @@ gulp.task("server", ["createWiki", "deleteMD"], function () {
 });
 
 gulp.task("only-server", function () {
-    return gulp.src("dist").pipe(webserver({
-        open: true
-    }));
+
+    if (fs.existsSync(path.resolve("./dist/md"))) {
+        return gulp.src("./dist")
+            .pipe(webserver({
+                open: true,
+                livereload: false,
+                root: "./dist",
+                directoryListing: false,
+                fallback: 'index.html'
+            }));
+    }
+    else {
+        return gulp.src("./")
+            .pipe(webserver({
+                open: true,
+                livereload: false,
+                directoryListing: true,
+                fallback: 'index.html'
+            }));
+    }
+
 })
 
 gulp.task("createWiki", ["createWebAppOnDest"], function () {
