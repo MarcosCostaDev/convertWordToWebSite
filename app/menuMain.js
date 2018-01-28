@@ -40,11 +40,19 @@ function generateMenu() {
                 itemTemp = `\n - - - - \n* # ${parent}\n\n`;
             }
 
-            let texto = g.aggregate((prev, atual) => {
-                itemTemp += `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
+            let text = g.aggregate((prev, atual) => {
+                if(typeof prev == 'object')
+                {
+                    itemTemp += `* [${prev.fileName.replace(".MD", "")}](${prev.href}) \n` + `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
+                }
+                else
+                {
+                    itemTemp += `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
+                }
+               
                 return itemTemp;
             });
-            return texto;
+            return text;
 
         }).toArray();
 

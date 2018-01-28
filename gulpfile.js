@@ -13,11 +13,11 @@ const configGlobal = require("./app/config/configGlobal"),
     rename = require("gulp-rename");
 
 let pathDocs = [
-    `${configGlobal.configuracao.wordFileSource}\\*.{doc,docx}`,
-    `!${configGlobal.configuracao.wordFileSource}\\~$*.{doc,docx}`
+    `${configGlobal.configuracao.wordFileSource}\\**\\*.{doc,docx}`,
+    `!${configGlobal.configuracao.wordFileSource}\\**\\~$*.{doc,docx}`
 ]
 let pathDistMds = [
-    `${configGlobal.configuracao.mdDist}\\**\\*.md`
+    `${configGlobal.configuracao.mdDist}\\**\\*.{md,MD}`
 ]
 
 
