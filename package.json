@@ -26,5 +26,8 @@
     "gulp-webserver": "^0.9.1",
     "linq": "^3.0.9",
     "mammoth": "^1.4.4"
+  },
+  "dependencies": {
+    "http-server": "^0.11.1"
   }
 }

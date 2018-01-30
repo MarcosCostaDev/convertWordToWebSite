@@ -1,4 +1,5 @@
 const configGlobal = require("./app/config/configGlobal"),
+    renameFiles = require("./app/renameFiles"),
     menuMain = require("./app/menuMain"),
     gulp = require("gulp"),
     fs = require("fs"),
@@ -82,33 +83,33 @@ gulp.task("createWebAppOnDest", ["deleteEmpty"], function () {
     pipe(clean());
 })
 
-gulp.task("deleteEmpty", ["deleteOldFiles"], function(){
-    return deleteEmpty('./dist/', function(err, deleted) {
+gulp.task("deleteEmpty", ["deleteOldFiles"], function () {
+    return deleteEmpty('./dist/', function (err, deleted) {
         console.log(deleted);
-      });
+    });
 })
 
-gulp.task("deleteOldFiles", ["renameMenu"], function(){
+gulp.task("deleteOldFiles", ["renameMenu"], function () {
 
     return gulp.src("./dist/md/**/*.md")
-    .pipe(through.obj((chunk, enc, cb) => {
-        if(chunk.path.replace(path.resolve("./dist/md"), "").indexOf(" ") > 0)
-        {
-            del(chunk.path, { force: true });
-            console.log(`File ${chunk.path} deleted!`)
+        .pipe(through.obj((chunk, enc, cb) => {
+            if (chunk.path.replace(path.resolve("./dist/md"), "").indexOf(/\s/) > 0) {
+                del(chunk.path, { force: true }).then((file, e) => {
+                    console.log(`File ${chunk.path} deleted!`)
+                }).catch(err => {
+                    console.log(err)
+                });
+           }
+            cb(null, chunk)
 
-        }
-
-        cb(null, chunk)
-    
-    }));
+        }));
 })
 
 gulp.task("renameMenu", ["createMenu"], function () {
     gulp.src("./dist/md/**/*.md")
         .pipe(rename(function (path) {
-            path.dirname = path.dirname.replace(/\s/g, "-").replace(/\+/g, "-").replace(/\,/g, "");
-            path.basename = path.basename.replace(/\s/g, "-").replace(/\+/g, "-").replace(/\,/g, "");
+            path.dirname = renameFiles.removerEspecialCharater(path.dirname);
+            path.basename = renameFiles.removerEspecialCharater(path.basename);
         }))
         .pipe(gulp.dest("./dist/md"));
 })

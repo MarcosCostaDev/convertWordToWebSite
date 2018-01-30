@@ -1,14 +1,39 @@
 
 var mapMenu = [];
 
+function removerEspecialCharater(newString) {
+    var string = newString;
+
+    if(string == ".") return string;
+    
+    var mapaAcentosHex = {
+        a: /[\xE0-\xE6]/g,
+        e: /[\xE8-\xEB]/g,
+        i: /[\xEC-\xEF]/g,
+        o: /[\xF2-\xF6]/g,
+        u: /[\xF9-\xFC]/g,
+        c: /\xE7/g,
+        n: /\xF1/g,
+        '-': /\s|\+|\./g,
+        "": /\,/g
+    };
+
+    for (var letra in mapaAcentosHex) {
+        var expressaoRegular = mapaAcentosHex[letra];
+        string = string.replace(expressaoRegular, letra);
+    }
+
+    return string;
+
+}
 exports.addMapMenu = function (filename, dir, href) {
     mapMenu.push({
         filename: filename,
         dir: dir,
         href: href,
-        newFileName: filename.replace(/\s/g,"-").replace(/\+/g, "-").replace(/\,/g, ""),
-        newDir: dir.replace(/\s/g,"-").replace(/\+/g, "-").replace(/\,/g, ""),
-        newHref: href.replace(/\s/g,"-").replace(/\+/g, "-").replace(/\,/g, "")
+        newFileName: removerEspecialCharater(filename),
+        newDir: removerEspecialCharater(dir),
+        newHref: removerEspecialCharater(href)
     });
 }
 
@@ -17,3 +42,5 @@ exports.getMapMenu = function () {
     return mapMenu;
 }
 
+
+exports.removerEspecialCharater = removerEspecialCharater;
