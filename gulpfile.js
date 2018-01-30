@@ -5,6 +5,7 @@ const configGlobal = require("./app/config/configGlobal"),
     path = require("path"),
     mammoth = require("mammoth"),
     through = require("through2"),
+    deleteEmpty = require('delete-empty'),
     converter = require("./app/converter"),
     clean = require("gulp-clean"),
     del = require("del"),
@@ -76,15 +77,40 @@ gulp.task("copy-javascript", function () {
         .pipe(gulp.dest(configGlobal.configuracao.dest))
 })
 
-gulp.task("createWebAppOnDest", ["createMenu"], function () {
+gulp.task("createWebAppOnDest", ["deleteEmpty"], function () {
     return gulp.src(pathDistMds)
     pipe(clean());
 })
 
-gulp.task("copyMdToDist", ["createMenu"], function () {
-    return gulp.src(pathDistMds)
-        .pipe(flatten())
-        .pipe(gulp.dest(configGlobal.configuracao.dest))
+gulp.task("deleteEmpty", ["deleteOldFiles"], function(){
+    return deleteEmpty('./dist/', function(err, deleted) {
+        console.log(deleted);
+      });
+})
+
+gulp.task("deleteOldFiles", ["renameMenu"], function(){
+
+    return gulp.src("./dist/md/**/*.md")
+    .pipe(through.obj((chunk, enc, cb) => {
+        if(chunk.path.replace(path.resolve("./dist/md"), "").indexOf(" ") > 0)
+        {
+            del(chunk.path, { force: true });
+            console.log(`File ${chunk.path} deleted!`)
+
+        }
+
+        cb(null, chunk)
+    
+    }));
+})
+
+gulp.task("renameMenu", ["createMenu"], function () {
+    gulp.src("./dist/md/**/*.md")
+        .pipe(rename(function (path) {
+            path.dirname = path.dirname.replace(/\s/g, "-").replace(/\+/g, "-").replace(/\,/g, "");
+            path.basename = path.basename.replace(/\s/g, "-").replace(/\+/g, "-").replace(/\,/g, "");
+        }))
+        .pipe(gulp.dest("./dist/md"));
 })
 
 gulp.task("createMenu", ["prepareMenu"], function () {
