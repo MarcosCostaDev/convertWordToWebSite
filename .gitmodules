@@ -1,0 +1,3 @@
+[submodule "mdwiki"]
+    path = mdwiki
+    url = https://github.com/marcoslcosta/mdwiki.git
