@@ -33,7 +33,7 @@ function prepareDistDirectoryFile(filePath) {
   const extension = path.extname(filePath);
   const destDirAbsolute = path.resolve(configGlobal.configuracao.mdDist);
   const targetDir = baseDir.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.mdDist);
-  const filePathDist = path.resolve(filePath.replace(configGlobal.configuracao.wordFileSource, configGlobal.configuracao.mdDist));
+  const filePathDist = path.resolve(filePath.replace(configGlobal.configuracao.wordFileSource, targetDir));
 
   createDist(targetDir);
 

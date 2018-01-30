@@ -1,4 +1,5 @@
 const globalConfig = require("./config/configGlobal"),
+renameFiles = require("./renameFiles"),
     Enumerable = require("linq"),
     fs = require("fs"),
     path = require("path");
@@ -40,34 +41,40 @@ function generateMenu() {
                 itemTemp = `\n - - - - \n* # ${parent}\n\n`;
             }
             let text = "";
-            if(g.count() > 1)
-            {
+            if (g.count() > 1) {
                 text += g.aggregate((prev, atual) => {
-                    if(typeof prev == 'object')
-                    {
+                    if (typeof prev == 'object') {
                         itemTemp += `* [${prev.fileName.replace(".MD", "")}](${prev.href}) \n` + `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
+                        renameFiles.addMapMenu(prev.fileName.replace(".MD", ""), prev.folderParent, prev.href);
                     }
-                    else
-                    {
+                    else {
                         itemTemp += `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
                     }
-                   
+
+                    renameFiles.addMapMenu(atual.fileName.replace(".MD", ""), atual.folderParent, atual.href);
+
                     return itemTemp;
                 });
             }
-            else
-            {
+            else {
                 itemTemp += `* [${g.first().fileName.replace(".MD", "")}](${g.first().href}) \n`
+                renameFiles.addMapMenu(g.first().fileName.replace(".MD", ""), g.first().folderParent, g.first().href);
                 text += itemTemp;
             }
-           
+
             return text;
 
         }).toArray();
 
+    let mapMenu = renameFiles.getMapMenu();
     for (let item of itens) {
+        let itemMap = Enumerable.from(mapMenu).first(p => item.indexOf(p.href) > 0)
+        if(itemMap)
+        {
+            item = item.replace(itemMap.href, itemMap.newHref);
+        }
+        
         fs.appendFileSync(`${path.resolve(globalConfig.configuracao.dest)}\\navigation.md`, item, "utf-8");
-
     }
 
 }
