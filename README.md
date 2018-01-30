@@ -23,12 +23,12 @@ npm start
 ``` 
 O projeto irá transformar todos os arquivos words da pasta selecionada em \.md e iniciará o navegador web com o site funcionando
 ``` 
-npm run build*
+npm run build
 ``` 
 O projeto irá transformar todos os arquivos words da pasta selecionada em \.md\.
 
 ``` 
-npm run only-server*
+npm run only-server
 ``` 
 
 O projeto iniciará o navegador web com o site funcionando caso ele esteja construído\.
