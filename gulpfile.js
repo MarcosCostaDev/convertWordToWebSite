@@ -84,7 +84,7 @@ gulp.task("createWebAppOnDest", ["deleteEmpty"], function () {
 })
 
 gulp.task("deleteEmpty", ["deleteOldFiles"], function () {
-    return deleteEmpty('./dist/', function (err, deleted) {
+    return deleteEmpty('./dist', function (err, deleted) {
         console.log(deleted);
     });
 })
@@ -93,7 +93,7 @@ gulp.task("deleteOldFiles", ["renameMenu"], function () {
 
     return gulp.src("./dist/md/**/*.md")
         .pipe(through.obj((chunk, enc, cb) => {
-            if (chunk.path.replace(path.resolve("./dist/md"), "").indexOf(/\s/) > 0) {
+            if (chunk.path.replace(path.resolve("./dist/md"), "").indexOf(" ") > 0) {
                 del(chunk.path, { force: true }).then((file, e) => {
                     console.log(`File ${chunk.path} deleted!`)
                 }).catch(err => {

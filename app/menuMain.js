@@ -44,21 +44,21 @@ function generateMenu() {
             if (g.count() > 1) {
                 text += g.aggregate((prev, atual) => {
                     if (typeof prev == 'object') {
-                        itemTemp += `* [${prev.fileName.replace(".MD", "")}](${prev.href}) \n` + `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
+                        itemTemp += `* [${prev.fileName.replace(".MD", "")}](${renameFiles.removerEspecialCharater(prev.href)}) \n` + `* [${atual.fileName.replace(".MD", "")}](${renameFiles.removerEspecialCharater(atual.href)}) \n`;
                         renameFiles.addMapMenu(prev.fileName.replace(".MD", ""), prev.folderParent, prev.href);
                     }
                     else {
-                        itemTemp += `* [${atual.fileName.replace(".MD", "")}](${atual.href}) \n`;
+                        itemTemp += `* [${atual.fileName.replace(".MD", "")}](${renameFiles.removerEspecialCharater(atual.href)}) \n`;
                     }
 
-                    renameFiles.addMapMenu(atual.fileName.replace(".MD", ""), atual.folderParent, atual.href);
+                    renameFiles.addMapMenu(atual.fileName.replace(".MD", ""), atual.folderParent, renameFiles.removerEspecialCharater(atual.href));
 
                     return itemTemp;
                 });
             }
             else {
-                itemTemp += `* [${g.first().fileName.replace(".MD", "")}](${g.first().href}) \n`
-                renameFiles.addMapMenu(g.first().fileName.replace(".MD", ""), g.first().folderParent, g.first().href);
+                itemTemp += `* [${g.first().fileName.replace(".MD", "")}](${renameFiles.removerEspecialCharater(g.first().href)}) \n`
+                renameFiles.addMapMenu(g.first().fileName.replace(".MD", ""), g.first().folderParent, renameFiles.removerEspecialCharater(g.first().href));
                 text += itemTemp;
             }
 
