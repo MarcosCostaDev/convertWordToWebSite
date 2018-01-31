@@ -94,14 +94,18 @@ gulp.task("deleteOldFiles", ["renameMenu"], function () {
     return gulp.src("./dist/md/**/*.md")
         .pipe(through.obj((chunk, enc, cb) => {
             if (chunk.path.replace(path.resolve("./dist/md"), "").indexOf(" ") > 0) {
-                del(chunk.path, { force: true }).then((file, e) => {
-                    console.log(`File ${chunk.path} deleted!`)
-                }).catch(err => {
-                    console.log(err)
-                });
+                if(fs.existsSync(chunk.path))
+                {
+                    fs.unlinkSync(chunk.path);
+                }
+               
+                cb(null, null)                
            }
+           else{
             cb(null, chunk)
 
+           }
+         
         }));
 })
 
