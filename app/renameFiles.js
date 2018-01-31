@@ -21,7 +21,7 @@ function removerEspecialCharater(newString) {
         C: /Ç/g,
         n: /\xF1/g,
         '-': /\s|\+|\.(?=.*\.)/g,
-        "": /\,|\.(?=.*\.)/g
+        "": /\,|\[|\]|\(|\)|\.(?=.*\.)/g
     };
 
     for (var letra in mapaAcentosHex) {
