@@ -12,11 +12,24 @@ const configGlobal = require("./app/config/configGlobal"),
     del = require("del"),
     webserver = require('gulp-webserver'),
     flatten = require("gulp-flatten"),
+    debug = require('gulp-debug'),
+    exec = require('child_process').exec,
     rename = require("gulp-rename");
 
+let options = {
+    continueOnError: false, // default = false, true means don't emit error event
+    pipeStdout: false, // default = false, true means stdout is written to file.contents
+    customTemplatingThing: "test" // content passed to lodash.template()
+};
+let reportOptions = {
+    err: true, // default = true, false means don't write err
+    stderr: true, // default = true, false means don't write stderr
+    stdout: true // default = true, false means don't write stdout
+};
+
 let pathDocs = [
-    `${configGlobal.configuracao.wordFileSource}\\**\\*.{doc,docx}`,
-    `!${configGlobal.configuracao.wordFileSource}\\**\\~$*.{doc,docx}`
+    `${configGlobal.getWordFileSource()}\\**\\*.{doc,docx}`,
+    `!${configGlobal.getWordFileSource()}\\**\\~$*.{doc,docx}`
 ]
 let pathDistMds = [
     `${configGlobal.configuracao.mdDist}\\**\\*.{md,MD}`
@@ -94,18 +107,17 @@ gulp.task("deleteOldFiles", ["renameMenu"], function () {
     return gulp.src("./dist/md/**/*.md")
         .pipe(through.obj((chunk, enc, cb) => {
             if (chunk.path.replace(path.resolve("./dist/md"), "").indexOf(" ") > 0) {
-                if(fs.existsSync(chunk.path))
-                {
+                if (fs.existsSync(chunk.path)) {
                     fs.unlinkSync(chunk.path);
                 }
-               
-                cb(null, null)                
-           }
-           else{
-            cb(null, chunk)
 
-           }
-         
+                cb(null, null)
+            }
+            else {
+                cb(null, chunk)
+
+            }
+
         }));
 })
 
@@ -135,6 +147,7 @@ gulp.task("prepareMenu", ["createMds"], function () {
 
 
 gulp.task("createMds", ["deleteDist"], function () {
+
     return gulp.src(pathDocs, { read: false })
         .pipe(through.obj((chunk, enc, cb) => {
             converter.convertWordToMd(chunk.history[0]);
@@ -142,10 +155,24 @@ gulp.task("createMds", ["deleteDist"], function () {
         }));
 })
 
-gulp.task("deleteDist", function () {
+gulp.task("deleteDist", ["copy-file-to-local"], function () {
     return del('./dist', { force: true });
 });
 
+gulp.task("copy-file-to-local", function (cb) {
+    if (configGlobal.configuracao.wordFileSource.indexOf("\\\\") == 0) {
+        exec(`for /R "${configGlobal.configuracao.wordFileSource}" %f in (*.docx) do copy \"%f\" "C:\\FAQ" /y`, function (err, stdout, stderr) {
+            console.log(stdout);
+            console.log(stderr);
+            configGlobal.setWordFileSource("C:\\FAQ");
+            cb(err);
+          });    
+    }
+    else{
+        cb();
+    }
+
+})
 
 gulp.task("deleteMD", function () {
     return del('./dist/md/', { force: true });

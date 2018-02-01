@@ -10,7 +10,8 @@
     "start": "gulp server",
     "build": "gulp default",
     "only-server": "gulp only-server",
-    "delete-dist": "gulp deleteDist"
+    "delete-dist": "gulp deleteDist",
+    "check-access": "gulp check-access"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,8 @@
     "gulp": "^3.9.1",
     "gulp-clean": "^0.4.0",
     "gulp-copy": "^1.1.0",
+    "gulp-debug": "^3.2.0",
+    "gulp-exec": "^3.0.1",
     "gulp-flatten": "^0.4.0",
     "gulp-rename": "^1.2.2",
     "gulp-run-command": "0.0.9",
@@ -27,7 +30,5 @@
     "linq": "^3.0.9",
     "mammoth": "^1.4.4"
   },
-  "dependencies": {
-    "http-server": "^0.11.1"
-  }
+  "dependencies": {}
 }

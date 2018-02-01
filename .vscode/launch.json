@@ -51,6 +51,22 @@
                 "${workspaceRoot}/node_modules/**/*.js",
             ],
             "env": {}
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "debug gulp check-access",
+            "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
+            "stopOnEntry": true,
+            "args": [
+                "check-access"
+            ],
+            "cwd": "${workspaceRoot}",
+            "runtimeExecutable": null,
+            "skipFiles": [
+                "${workspaceRoot}/node_modules/**/*.js",
+            ],
+            "env": {}
         }
     ]
 }
