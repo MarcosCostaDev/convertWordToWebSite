@@ -27,12 +27,14 @@ let reportOptions = {
     stdout: true // default = true, false means don't write stdout
 };
 
-let pathDocs = [
-    `${configGlobal.getWordFileSource()}\\**\\*.{doc,docx}`,
-    `!${configGlobal.getWordFileSource()}\\**\\~$*.{doc,docx}`
-]
+let pathDocs = function(){
+   return [`${global.config.wordFileSource}\\**\\*.{doc,docx}`,
+    `!${global.config.wordFileSource}\\**\\~$*.{doc,docx}`]
+}
+    
+
 let pathDistMds = [
-    `${configGlobal.configuracao.mdDist}\\**\\*.{md,MD}`
+    `${global.config.mdDist}\\**\\*.{md,MD}`
 ]
 
 
@@ -74,13 +76,13 @@ gulp.task("createWiki", ["createWebAppOnDest"], function () {
 gulp.task("copyIndex.html", function () {
     return gulp.src("./webapp/mdwiki.html")
         .pipe(rename('index.html'))
-        .pipe(gulp.dest(configGlobal.configuracao.dest))
+        .pipe(gulp.dest(global.config.dest))
 })
 
 gulp.task("copyIndex.md", function () {
     if (!fs.existsSync(path.resolve("./dist/index.md"))) {
         return gulp.src("./webapp/index.md")
-            .pipe(gulp.dest(configGlobal.configuracao.dest))
+            .pipe(gulp.dest(global.config.dest))
     }
     return;
 })
@@ -88,7 +90,7 @@ gulp.task("copyIndex.md", function () {
 
 gulp.task("copy-other-files", function () {
     return gulp.src(["./webapp/*.js", "./webapp/web.config"])
-        .pipe(gulp.dest(configGlobal.configuracao.dest))
+        .pipe(gulp.dest(global.config.dest))
 })
 
 gulp.task("createWebAppOnDest", ["deleteEmpty"], function () {
@@ -148,7 +150,7 @@ gulp.task("prepareMenu", ["createMds"], function () {
 
 gulp.task("createMds", ["deleteDist"], function () {
 
-    return gulp.src(pathDocs, { read: false })
+    return gulp.src(pathDocs(), { read: false })
         .pipe(through.obj((chunk, enc, cb) => {
             converter.convertWordToMd(chunk.history[0]);
             cb(null, chunk)
@@ -160,11 +162,11 @@ gulp.task("deleteDist", ["copy-file-to-local"], function () {
 });
 
 gulp.task("copy-file-to-local", function (cb) {
-    if (configGlobal.configuracao.wordFileSource.indexOf("\\\\") == 0) {
-        exec(`for /R "${configGlobal.configuracao.wordFileSource}" %f in (*.docx) do copy \"%f\" "C:\\FAQ" /y`, function (err, stdout, stderr) {
+    if (global.config.wordFileSource.indexOf("\\\\") == 0) {
+        exec(`for /R "${global.config.wordFileSource}" %f in (*.docx) do copy \"%f\" "C:\\FAQ" /y`, function (err, stdout, stderr) {
             console.log(stdout);
             console.log(stderr);
-            configGlobal.setWordFileSource("C:\\FAQ");
+            global.config.wordFileSource = "C:\\FAQ";
             cb(err);
           });    
     }
