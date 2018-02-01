@@ -54,7 +54,7 @@ gulp.task("only-server", function () {
 })
 
 gulp.task("createWiki", ["createWebAppOnDest"], function () {
-    return gulp.start(["copyIndex.html", "copyIndex.md", "copy-javascript"])
+    return gulp.start(["copyIndex.html", "copyIndex.md", "copy-other-files"])
 })
 
 
@@ -73,8 +73,8 @@ gulp.task("copyIndex.md", function () {
 })
 
 
-gulp.task("copy-javascript", function () {
-    return gulp.src("./webapp/*.js")
+gulp.task("copy-other-files", function () {
+    return gulp.src(["./webapp/*.js", "./webapp/web.config"])
         .pipe(gulp.dest(configGlobal.configuracao.dest))
 })
 
