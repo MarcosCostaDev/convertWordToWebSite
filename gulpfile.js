@@ -163,12 +163,24 @@ gulp.task("deleteDist", ["copy-file-to-local-machine"], function () {
 
 gulp.task("copy-file-to-local-machine", function (cb) {
     if (global.config.wordFileSource.indexOf("\\\\") == 0) {
-        exec(`for /R "${global.config.wordFileSource}" %f in (*.docx) do copy \"%f\" "C:\\FAQ" /y`, function (err, stdout, stderr) {
+        exec(`if not exist "C:\\FAQ\\" mkdir C:\\FAQ`, function (err, stdout, stderr) {
             console.log(stdout);
             console.log(stderr);
-            global.config.wordFileSource = "C:\\FAQ";
-            cb(err);
-          });    
+            if(err)
+            {
+                cb(err)
+            }
+            else{
+                exec(`for /R "${global.config.wordFileSource}" %f in (*.docx) do copy \"%f\" "C:\\FAQ\\" /y`, function (err, stdout, stderr) {
+                    console.log(stdout);
+                    console.log(stderr);
+                    global.config.wordFileSource = "C:\\FAQ";
+                    cb(err);
+                  });   
+            }
+            
+        });
+         
     }
     else{
         cb();
