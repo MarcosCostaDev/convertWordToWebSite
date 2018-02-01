@@ -157,11 +157,11 @@ gulp.task("createMds", ["deleteDist"], function () {
         }));
 })
 
-gulp.task("deleteDist", ["copy-file-to-local"], function () {
+gulp.task("deleteDist", ["copy-file-to-local-machine"], function () {
     return del('./dist', { force: true });
 });
 
-gulp.task("copy-file-to-local", function (cb) {
+gulp.task("copy-file-to-local-machine", function (cb) {
     if (global.config.wordFileSource.indexOf("\\\\") == 0) {
         exec(`for /R "${global.config.wordFileSource}" %f in (*.docx) do copy \"%f\" "C:\\FAQ" /y`, function (err, stdout, stderr) {
             console.log(stdout);
