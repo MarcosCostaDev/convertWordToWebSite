@@ -12,8 +12,9 @@ const configGlobal = require("./app/config/configGlobal"),
     del = require("del"),
     webserver = require('gulp-webserver'),
     flatten = require("gulp-flatten"),
-    debug = require('gulp-debug'),
     exec = require('child_process').exec,
+    jasmineNode = require('gulp-jasmine-node'),
+    reporters = require('jasmine-reporters'),
     rename = require("gulp-rename");
 
 let options = {
@@ -27,11 +28,11 @@ let reportOptions = {
     stdout: true // default = true, false means don't write stdout
 };
 
-let pathDocs = function(){
-   return [`${global.config.wordFileSource}\\**\\*.{doc,docx}`,
+let pathDocs = function () {
+    return [`${global.config.wordFileSource}\\**\\*.{doc,docx}`,
     `!${global.config.wordFileSource}\\**\\~$*.{doc,docx}`]
 }
-    
+
 
 let pathDistMds = [
     `${global.config.mdDist}\\**\\*.{md,MD}`
@@ -166,28 +167,37 @@ gulp.task("copy-file-to-local-machine", function (cb) {
         exec(`if not exist "C:\\FAQ\\" mkdir C:\\FAQ`, function (err, stdout, stderr) {
             console.log(stdout);
             console.log(stderr);
-            if(err)
-            {
+            if (err) {
                 cb(err)
             }
-            else{
+            else {
                 exec(`for /R "${global.config.wordFileSource}" %f in (*.docx) do copy \"%f\" "C:\\FAQ\\" /y`, function (err, stdout, stderr) {
                     console.log(stdout);
                     console.log(stderr);
                     global.config.wordFileSource = "C:\\FAQ";
                     cb(err);
-                  });   
+                });
             }
-            
+
         });
-         
+
     }
-    else{
+    else {
         cb();
     }
 
 })
 
-gulp.task("deleteMD", function () {
+gulp.task("deleteMD", ["tests"], function () {
     return del('./dist/md/', { force: true });
+});
+
+
+gulp.task("tests", function(){
+    return gulp.src(['spec/**/*.spec.js']).pipe(jasmineNode({
+        timeout: 10000,
+        includeStackTrace: false,
+        color: true,
+      //  reporter: new reporters.JUnitXmlReporter()
+    }));
 });
