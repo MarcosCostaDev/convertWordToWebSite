@@ -2,8 +2,7 @@ const mammoth = require("mammoth"),
     linq = require("linq"),
     fs = require("fs"),
     path = require("path"),
-    prepareFiles = require("./prepareFiles"),
-    globalConfig = require("./config/configGlobal");
+    prepareFiles = require("./prepareFiles");
 
 function convertWordToMd(filePath) {
     mammoth.convertToMarkdown({ path: filePath }).then(result => {
