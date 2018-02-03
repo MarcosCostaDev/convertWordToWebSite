@@ -1,10 +1,10 @@
-const globalConfig = require("./config/configGlobal"),
+const 
 renameFiles = require("./renameFiles"),
     Enumerable = require("linq"),
     fs = require("fs"),
     path = require("path");
 let itensMenuTemp = [];
-let pathBase = path.resolve(globalConfig.configuracao.mdDist) + "\\";
+let pathBase = path.resolve(global.config.mdDist) + "\\";
 
 
 
@@ -25,7 +25,7 @@ function prepareMenu(mdPath) {
 }
 
 function generateMenu() {
-    fs.appendFileSync(`${path.resolve(globalConfig.configuracao.dest)}\\navigation.md`, `# ${globalConfig.configuracao.siteName}`, "utf-8");
+    fs.appendFileSync(`${path.resolve(global.config.dest)}\\navigation.md`, `# ${global.config.siteName}`, "utf-8");
 
     let itens = Enumerable.from(itensMenuTemp)
         .groupBy(p => p.parent)
@@ -34,7 +34,7 @@ function generateMenu() {
             let parent = path.basename(g.key());
             let folderParent = g.first().folderParent;
             let itemTemp = "";
-            if (path.resolve(folderParent) == path.resolve(globalConfig.configuracao.mdDist)) {
+            if (path.resolve(folderParent) == path.resolve(global.config.mdDist)) {
                 itemTemp = `\n\n[${parent}]()\n\n`;
             }
             else {
@@ -74,7 +74,7 @@ function generateMenu() {
             item = item.replace(itemMap.href, itemMap.newHref);
         }
         
-        fs.appendFileSync(`${path.resolve(globalConfig.configuracao.dest)}\\navigation.md`, item.trim(), "utf-8");
+        fs.appendFileSync(`${path.resolve(global.config.dest)}\\navigation.md`, item.trim(), "utf-8");
     }
 
 }

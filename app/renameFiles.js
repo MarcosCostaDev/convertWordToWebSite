@@ -49,4 +49,8 @@ exports.getMapMenu = function () {
 }
 
 
+exports.resetMenu = function(){
+    mapMenu = [];
+}
+
 exports.removerEspecialCharater = removerEspecialCharater;

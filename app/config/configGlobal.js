@@ -1,8 +1,10 @@
 var pjson = require('../../package.json');
 
-exports.configuracao = {
+global.config = {
     wordFileSource: pjson.wordFileSource,
     mdDist: pjson.mdDist,
     dest: pjson.dest,
     siteName: pjson.siteName
 }
+
+//exports.configuracao = config;
