@@ -15,18 +15,8 @@ const configGlobal = require("./app/config/configGlobal"),
     exec = require('child_process').exec,
     jasmineNode = require('gulp-jasmine-node'),
     reporters = require('jasmine-reporters'),
+    jshint = require("gulp-jshint"),
     rename = require("gulp-rename");
-
-let options = {
-    continueOnError: false, // default = false, true means don't emit error event
-    pipeStdout: false, // default = false, true means stdout is written to file.contents
-    customTemplatingThing: "test" // content passed to lodash.template()
-};
-let reportOptions = {
-    err: true, // default = true, false means don't write err
-    stderr: true, // default = true, false means don't write stderr
-    stdout: true // default = true, false means don't write stdout
-};
 
 let pathDocs = function () {
     return [`${global.config.wordFileSource}\\**\\*.{doc,docx}`,
@@ -194,10 +184,10 @@ gulp.task("deleteMD", ["tests"], function () {
 
 
 gulp.task("tests", function(){
-    return gulp.src(['spec/**/*.spec.js']).pipe(jasmineNode({
-        timeout: 10000,
+    
+    return gulp.src(['spec/**/*.spec.js'])
+    .pipe(jasmineNode({
         includeStackTrace: false,
-        color: true,
-      //  reporter: new reporters.JUnitXmlReporter()
-    }));
+        color: true
+    }))
 });
